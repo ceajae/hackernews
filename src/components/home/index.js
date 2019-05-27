@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import Author from '../../assets/img/author.svg';
 import Comment from '../../assets/img/comment.svg';
 import Logo from '../../assets/img/logo.svg';
@@ -23,16 +23,11 @@ export default class Home extends Component {
     }
 
     componentDidMount(){
-        console.log('awesome')
         this._handleGetNewsItems();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        console.log(this.state.newsItems);
-        // console.log(nextState)
         if (nextState.newsItemsIds.length === nextState.newsItems.length){
-            // this._handlePopulateNewsItems();
-            console.log('i am ready to populate')
             return true;
         }
         else {
@@ -41,15 +36,12 @@ export default class Home extends Component {
     }
 
     componentDidUpdate(){
-        console.log('fill the timeline!!!!!!!');
-        console.log(this.state.newsItemsArray.length)
         if (this.state.newsItemsArray.length === 0){
             this._handlePopulateNewsItems();
         }
         else{
             return;
         }
-        // this._handlePopulateNewsItems();
     }
 
     _handleGetNewsItems(){
@@ -110,26 +102,27 @@ export default class Home extends Component {
         const newsItems = this.state.newsItems;
         const newsItemsArray = newsItems.map(item => {
              return (
-                        <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>{item.title}</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                {`(${item.url})`}
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />{item.by}</div>
-                                    <div className='comments'><img src={Comment}/>{item.descendants}</div>
+                        <a href={item.url} className='news_item_link' >
+                            <div className='news_item'>
+                                <div className='news_header'>
+                                    <div className='news_header_title'>{item.title}</div>
+                                    <div className='news_header_time'>a year ago</div>
                                 </div>
-                                <div className='points'>{item.score} points</div>
+                                <div className='news_url'>
+                                    {`(${item.url})`}
+                                </div>
+                                <div className='news_footer'>
+                                    <div className='comments_wrap'>
+                                        <div className='author'><img src={Author} />{item.by}</div>
+                                        <div className='comments'><img src={Comment}/>{item.descendants}</div>
+                                    </div>
+                                    <div className='points'>{item.score} points</div>
+                                </div>
                             </div>
-                        </div>
+                        </a>
+                       
                     )
         });
-
-        console.log('oh! my!!!!!!!!!!!!!!')
 
         this.setState({newsItemsArray: newsItemsArray});
 
@@ -155,124 +148,6 @@ export default class Home extends Component {
                     </div>
                     <div className='news_main'>
                         {this.state.newsItemsArray}
-                        {/* <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div> */}
-
-                        {/* <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div>
-
-                        <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div>
-
-                        <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div>
-
-                        <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div>
-
-                        <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div>
-
-                        <div className='news_item'>
-                            <div className='news_header'>
-                                <div className='news_header_title'>Stephen Hawking has died</div>
-                                <div className='news_header_time'>a year ago</div>
-                            </div>
-                            <div className='news_url'>
-                                (http://www.bbc.com/news/uk-43396008)
-                            </div>
-                            <div className='news_footer'>
-                                <div className='comments_wrap'>
-                                    <div className='author'><img src={Author} />Cogito</div>
-                                    <div className='comments'><img src={Comment}/>300</div>
-                                </div>
-                                <div className='points'>1,452 points</div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
                 <div className='header col-md-6'>
